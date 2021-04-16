@@ -37,13 +37,7 @@ public class GetOrderDao {
              PreparedStatement ps = createPreparedStatement(con, paramsDto.getOrderId());
              ResultSet rs = createResultSet(ps)
         ) {
-            if(rs.next()){
-                orderDto = new OrderDto();
-                orderDto.setOrderId(rs.getLong("order_id"));
-                orderDto.setOrderCustomerid(rs.getLong("order_customer_id"));
-                orderDto.setDate(rs.getTimestamp("order_date"));
-                orderDto.setStatus(rs.getString("order_status"));
-            }
+
         } catch (SQLException ex) {
             ExceptionHandler.handleException(ex);
         }
