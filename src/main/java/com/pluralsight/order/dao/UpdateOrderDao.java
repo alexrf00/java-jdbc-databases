@@ -34,7 +34,7 @@ public class  UpdateOrderDao {
         try (Connection con = database.getConnnetion();
              PreparedStatement ps = createPreparedStatement(con, paramsDto)
         ) {
-            numberResults = ps.executeUpdate();
+            
         } catch (SQLException ex) {
             ExceptionHandler.handleException(ex);
         }
