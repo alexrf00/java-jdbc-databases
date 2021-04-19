@@ -11,7 +11,7 @@ import java.sql.SQLException;
 /**
  * DAO to update an order
  */
-public class UpdateOrderDao {
+public class  UpdateOrderDao {
     private String query = "UPDATE orders o SET o.order_status = ? WHERE o.order_id = ?";
     private Database database;
 
@@ -31,10 +31,10 @@ public class UpdateOrderDao {
     public int updateOrderStatus(ParamsDto paramsDto) {
         int numberResults = 0;
 
-        try (Connection con = null;
+        try (Connection con = database.getConnnetion();
              PreparedStatement ps = createPreparedStatement(con, paramsDto)
         ) {
-
+            numberResults = ps.executeUpdate();
         } catch (SQLException ex) {
             ExceptionHandler.handleException(ex);
         }
@@ -50,7 +50,10 @@ public class UpdateOrderDao {
      * @throws SQLException In case of an error
      */
     private PreparedStatement createPreparedStatement(Connection con, ParamsDto paramsDto) throws SQLException {
+        PreparedStatement ps = con.prepareStatement((query));
+        ps.setString(1, paramsDto.getStatus);
+        ps.setLong(1, paramsDto.getOrderId);
 
-        return null;
+        return ps;
     }
 }
